@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace DBusSharp;
 
 public class WireFormatObject
@@ -138,6 +140,22 @@ public class DBusMarshaler
           }
           
           wireFormatObject.typeCode = 'h';
+       }
+
+       if (objToMarshal is String strObj)
+       {
+          byte[] bytes = Encoding.UTF8.GetBytes(strObj);
+          int bytesLen = bytes.Length;
+          Array.Resize(ref bytes, bytes.Length + 1);
+          bytes[bytesLen] = (byte)'\0';
+          FixEndianess(bytes, endianess);
+          
+          foreach (byte strByte in bytes)
+          {
+             wireFormatObject.dataBytes.Add(strByte);
+          }
+          
+          wireFormatObject.typeCode = 's';
        }
        
        return wireFormatObject;

@@ -141,4 +141,30 @@ public class MarshalerUnitTest
         Assert.Equal(expected, wireFormatObject.GetHexRep());
         Assert.Equal('h', wireFormatObject.typeCode);
     }
+    
+    [Theory]
+    [InlineData("a", MessageEndianess.LittleEndian, "61-00")]
+    [InlineData("b", MessageEndianess.LittleEndian, "62-00")]
+    [InlineData("a", MessageEndianess.BigEndian, "00-61")]
+    [InlineData("b", MessageEndianess.BigEndian, "00-62")]
+    [InlineData("ab", MessageEndianess.BigEndian, "00-62-61")]
+    [InlineData("ab", MessageEndianess.LittleEndian, "61-62-00")]
+    public void TestMarshalString(string value, MessageEndianess endianess, string expected)
+    {
+        Byte nullByte = (byte)'\0';
+        DBusMarshaler marshaler = new DBusMarshaler();
+        
+        WireFormatObject wireFormatObject = marshaler.MarshalObject(value, endianess);
+        Assert.Equal(expected, wireFormatObject.GetHexRep());
+        Assert.Equal('s', wireFormatObject.typeCode);
+        switch (endianess)
+        {
+            case MessageEndianess.BigEndian:
+                Assert.StartsWith("00-", wireFormatObject.GetHexRep());
+                break;
+            case MessageEndianess.LittleEndian:
+                Assert.EndsWith("-00", wireFormatObject.GetHexRep());
+                break;
+        }
+    }
 }
