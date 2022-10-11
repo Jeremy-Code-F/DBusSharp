@@ -26,6 +26,39 @@ public class DBusMarshaler
           Array.Reverse(data);
        }
    }
+
+   private byte[] WireMarshalString(string strToMarshal, MessageEndianess endianess)
+   {
+      List<byte> strBytes = new List<byte>();
+          
+      byte[] bytes = Encoding.UTF8.GetBytes(strToMarshal);
+      UInt32 bytesLen = (UInt32)bytes.Length;
+      byte[] strLenBytes = BitConverter.GetBytes(bytesLen);
+      foreach (byte byteLenByte in strLenBytes)
+      {
+         strBytes.Add(byteLenByte);
+      }
+
+      foreach (byte strByte in bytes)
+      {
+         strBytes.Add(strByte);
+      }
+      strBytes.Add((byte)'\0');
+
+      int remainingAlignmentBytes = 4 - (strBytes.Count % 4) ;
+      if (remainingAlignmentBytes < 4)
+      {
+         for (int i = 0; i < remainingAlignmentBytes; i++)
+         {
+            strBytes.Add((byte)'\0'); 
+         }
+      }
+
+      byte[] byteArr = strBytes.ToArray();
+      FixEndianess(byteArr, endianess);
+      return byteArr;
+   }
+   
    public WireFormatObject  MarshalObject(object objToMarshal, MessageEndianess endianess)
    {
        WireFormatObject wireFormatObject = new WireFormatObject();
@@ -151,13 +184,8 @@ public class DBusMarshaler
 
        if (objToMarshal is String strObj)
        {
-          byte[] bytes = Encoding.UTF8.GetBytes(strObj);
-          int bytesLen = bytes.Length;
-          Array.Resize(ref bytes, bytes.Length + 1);
-          bytes[bytesLen] = (byte)'\0';
-          FixEndianess(bytes, endianess);
-          
-          foreach (byte strByte in bytes)
+          byte[] byteArr = this.WireMarshalString(strObj, endianess);
+          foreach (byte strByte in byteArr)
           {
              wireFormatObject.dataBytes.Add(strByte);
           }
@@ -167,11 +195,7 @@ public class DBusMarshaler
 
        if (objToMarshal is DBusObjectPath objPath)
        {
-          byte[] bytes = Encoding.UTF8.GetBytes(objPath.ObjectPath);
-          int bytesLen = bytes.Length;
-          Array.Resize(ref bytes, bytes.Length + 1);
-          bytes[bytesLen] = (byte)'\0';
-          FixEndianess(bytes, endianess);
+          byte[] bytes = this.WireMarshalString(objPath.ObjectPath, endianess);
           
           foreach (byte strByte in bytes)
           {

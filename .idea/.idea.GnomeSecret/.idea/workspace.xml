@@ -49,7 +49,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected=".NET Project.GnomeSecret">
     <configuration name="GnomeSecret" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/GnomeSecret/bin/Debug/net6.0/GnomeSecret" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -82,7 +82,8 @@
       <workItem from="1665356500648" duration="620000" />
       <workItem from="1665364193887" duration="100000" />
       <workItem from="1665416339215" duration="11268000" />
-      <workItem from="1665448875273" duration="2473000" />
+      <workItem from="1665448875273" duration="3071000" />
+      <workItem from="1665499440436" duration="5118000" />
     </task>
     <servers />
   </component>
@@ -127,16 +128,29 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/UnitTestDbusSharp/MarshalerUnitTest.cs</url>
-          <line>98</line>
+          <line>104</line>
           <properties documentPath="$PROJECT_DIR$/UnitTestDbusSharp/MarshalerUnitTest.cs" initialLine="83" containingFunctionPresentation="method 'TestMarshalInt64'">
             <startOffsets>
-              <option value="4850" />
+              <option value="5249" />
             </startOffsets>
             <endOffsets>
-              <option value="4928" />
+              <option value="5327" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/DBusSharpLib/WireFormat/DBusMarshaler.cs</url>
+          <line>47</line>
+          <properties documentPath="$PROJECT_DIR$/DBusSharpLib/WireFormat/DBusMarshaler.cs" initialLine="47" containingFunctionPresentation="method 'WireMarshalString'">
+            <startOffsets>
+              <option value="1203" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1259" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

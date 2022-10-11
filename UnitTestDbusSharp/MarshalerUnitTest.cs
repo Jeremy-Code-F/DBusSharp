@@ -38,6 +38,8 @@ public class MarshalerUnitTest
     [Theory]
     [InlineData(Int16.MaxValue, MessageEndianess.LittleEndian, "FF-7F")]
     [InlineData(Int16.MinValue, MessageEndianess.LittleEndian, "00-80")]
+    [InlineData(1, MessageEndianess.LittleEndian, "01-00")]
+    [InlineData(1, MessageEndianess.BigEndian, "00-01")]
     [InlineData(Int16.MaxValue, MessageEndianess.BigEndian, "7F-FF")]
     [InlineData(Int16.MinValue, MessageEndianess.BigEndian, "80-00")]
     public void TestMarshalInt16(Int16 value, MessageEndianess endianess, string expected)
@@ -65,6 +67,8 @@ public class MarshalerUnitTest
     [Theory]
     [InlineData(Int32.MaxValue - 1, MessageEndianess.LittleEndian, "FE-FF-FF-7F")]
     [InlineData(Int32.MinValue + 1, MessageEndianess.LittleEndian, "01-00-00-80")]
+    [InlineData(1, MessageEndianess.LittleEndian, "01-00-00-00")]
+    [InlineData(1, MessageEndianess.BigEndian, "00-00-00-01")]
     [InlineData(Int32.MaxValue - 1, MessageEndianess.BigEndian, "7F-FF-FF-FE")]
     [InlineData(Int32.MinValue + 1, MessageEndianess.BigEndian, "80-00-00-01")]
     public void TestMarshalInt32(Int32 value, MessageEndianess endianess, string expected)
@@ -91,6 +95,8 @@ public class MarshalerUnitTest
     [Theory]
     [InlineData(Int64.MaxValue - 1, MessageEndianess.LittleEndian, "FE-FF-FF-FF-FF-FF-FF-7F")]
     [InlineData(Int64.MinValue + 1, MessageEndianess.LittleEndian, "01-00-00-00-00-00-00-80")]
+    [InlineData(1, MessageEndianess.LittleEndian, "01-00-00-00-00-00-00-00")]
+    [InlineData(1, MessageEndianess.BigEndian, "00-00-00-00-00-00-00-01")]
     [InlineData(Int64.MaxValue - 1, MessageEndianess.BigEndian,    "7F-FF-FF-FF-FF-FF-FF-FE")]
     [InlineData(Int64.MinValue + 1, MessageEndianess.BigEndian,    "80-00-00-00-00-00-00-01")]
     public void TestMarshalInt64(Int64 value, MessageEndianess endianess, string expected)
@@ -144,12 +150,16 @@ public class MarshalerUnitTest
     }
     
     [Theory]
-    [InlineData("a", MessageEndianess.LittleEndian, "61-00")]
-    [InlineData("b", MessageEndianess.LittleEndian, "62-00")]
-    [InlineData("a", MessageEndianess.BigEndian, "00-61")]
-    [InlineData("b", MessageEndianess.BigEndian, "00-62")]
-    [InlineData("ab", MessageEndianess.BigEndian, "00-62-61")]
-    [InlineData("ab", MessageEndianess.LittleEndian, "61-62-00")]
+    [InlineData("a", MessageEndianess.LittleEndian, "01-00-00-00-61-00-00-00")]
+    [InlineData("a", MessageEndianess.BigEndian, "00-00-00-61-00-00-00-01")]
+    [InlineData("b", MessageEndianess.LittleEndian, "01-00-00-00-62-00-00-00")]
+    [InlineData("b", MessageEndianess.BigEndian, "00-00-00-62-00-00-00-01")]
+    [InlineData("foo", MessageEndianess.BigEndian, "00-6F-6F-66-00-00-00-03")]
+    [InlineData("foo", MessageEndianess.LittleEndian, "03-00-00-00-66-6F-6F-00")]
+    [InlineData("+", MessageEndianess.LittleEndian, "01-00-00-00-2B-00-00-00")]
+    [InlineData("+", MessageEndianess.BigEndian, "00-00-00-2B-00-00-00-01")]
+    [InlineData("bar", MessageEndianess.BigEndian, "00-72-61-62-00-00-00-03")]
+    [InlineData("bar", MessageEndianess.LittleEndian, "03-00-00-00-62-61-72-00")]
     public void TestMarshalString(string value, MessageEndianess endianess, string expected)
     {
         DBusMarshaler marshaler = new DBusMarshaler();
@@ -157,20 +167,11 @@ public class MarshalerUnitTest
         WireFormatObject wireFormatObject = marshaler.MarshalObject(value, endianess);
         Assert.Equal(expected, wireFormatObject.GetHexRep());
         Assert.Equal('s', wireFormatObject.typeCode);
-        switch (endianess)
-        {
-            case MessageEndianess.BigEndian:
-                Assert.StartsWith("00-", wireFormatObject.GetHexRep());
-                break;
-            case MessageEndianess.LittleEndian:
-                Assert.EndsWith("-00", wireFormatObject.GetHexRep());
-                break;
-        }
     }
 
     [Theory]
-    [InlineData("/abc", MessageEndianess.LittleEndian, "2F-61-62-63-00")]
-    [InlineData("/abc", MessageEndianess.BigEndian, "00-63-62-61-2F")]
+    [InlineData("/abc", MessageEndianess.LittleEndian, "04-00-00-00-2F-61-62-63-00-00-00-00")]
+    [InlineData("/abc", MessageEndianess.BigEndian, "00-00-00-00-63-62-61-2F-00-00-00-04")]
     public void TestMarshalObjectPath(string value, MessageEndianess endianess, string expected)
     {
         DBusObjectPath objectPath = new DBusObjectPath(value);
