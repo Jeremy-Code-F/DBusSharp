@@ -19,10 +19,11 @@ public class MarshalerUnitTest
     }
     
     [Theory]
-    [InlineData(false, MessageEndianess.LittleEndian, "00")]
-    [InlineData(true, MessageEndianess.LittleEndian, "01")]
-    [InlineData(false, MessageEndianess.BigEndian, "00")]
-    [InlineData(true, MessageEndianess.BigEndian, "01")]
+    [InlineData(false, MessageEndianess.LittleEndian, "00-00-00-00")]
+    [InlineData(true, MessageEndianess.LittleEndian, "01-00-00-00")]
+    [InlineData(false, MessageEndianess.BigEndian, "00-00-00-00")]
+    [InlineData(true, MessageEndianess.BigEndian, "00-00-00-01")]
+    // BOOLEAN values are encoded in 32 bits (of which only the least significant bit is used). 
     public void TestMarshalBoolean(Boolean value, MessageEndianess endianess, string expected)
     {
         DBusMarshaler marshaler = new DBusMarshaler();

@@ -34,10 +34,17 @@ public class DBusMarshaler
           wireFormatObject.dataBytes.Add(objByte);
           wireFormatObject.typeCode = 'y';
        }
-
+         
+       // BOOLEAN values are encoded in 32 bits (of which only the least significant bit is used). 
        if (objToMarshal is Boolean booleanObj)
        {
-          byte[] bytes = BitConverter.GetBytes(booleanObj);
+          Int32 boolInt = 0; 
+          if (booleanObj)
+          {
+             boolInt = 1;
+          }
+          byte[] bytes = BitConverter.GetBytes(boolInt);
+          FixEndianess(bytes, endianess);
           foreach (byte intByte in bytes)
           {
              wireFormatObject.dataBytes.Add(intByte);
