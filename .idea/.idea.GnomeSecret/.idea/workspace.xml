@@ -37,17 +37,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/chewy/RiderProjects/GnomeSecret",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.7532656&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/chewy/RiderProjects/GnomeSecret&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Project.GnomeSecret">
     <configuration name="GnomeSecret" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/GnomeSecret/bin/Debug/net6.0/GnomeSecret" />
@@ -80,7 +81,8 @@
       <workItem from="1665346256620" duration="8390000" />
       <workItem from="1665356500648" duration="620000" />
       <workItem from="1665364193887" duration="100000" />
-      <workItem from="1665416339215" duration="10615000" />
+      <workItem from="1665416339215" duration="11268000" />
+      <workItem from="1665448875273" duration="1540000" />
     </task>
     <servers />
   </component>

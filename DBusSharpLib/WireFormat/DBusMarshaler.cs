@@ -157,6 +157,23 @@ public class DBusMarshaler
           
           wireFormatObject.typeCode = 's';
        }
+
+       if (objToMarshal is DBusObjectPath objPath)
+       {
+          byte[] bytes = Encoding.UTF8.GetBytes(objPath.ObjectPath);
+          int bytesLen = bytes.Length;
+          Array.Resize(ref bytes, bytes.Length + 1);
+          bytes[bytesLen] = (byte)'\0';
+          FixEndianess(bytes, endianess);
+          
+          foreach (byte strByte in bytes)
+          {
+             wireFormatObject.dataBytes.Add(strByte);
+          }
+          
+          wireFormatObject.typeCode = 'o';
+          
+       }
        
        return wireFormatObject;
    }
