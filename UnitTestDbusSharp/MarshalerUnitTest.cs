@@ -194,4 +194,18 @@ public class MarshalerUnitTest
         Assert.Equal(expected, wireFormatObject.GetHexRep());
         Assert.Equal('g', wireFormatObject.typeCode);
     }
+    
+    [Theory]
+    [InlineData(new Int32[]{3}, MessageEndianess.LittleEndian, "01-00-00-00-03-00-00-00")]
+    [InlineData(new Int32[]{3}, MessageEndianess.BigEndian, "03-00-00-00-00-00-00-01")]
+    [InlineData(new Int32[]{3,1}, MessageEndianess.LittleEndian, "02-00-00-00-03-00-00-00-01-00-00-00")]
+    [InlineData(new Int32[]{3,1}, MessageEndianess.BigEndian, "01-00-00-00-03-00-00-00-00-00-00-02")]
+    public void TestMarshalInt32Array(Int32[] value, MessageEndianess endianess, string expected)
+    {
+        DBusMarshaler marshaler = new DBusMarshaler();
+        
+        WireFormatObject wireFormatObject = marshaler.MarshalObject(value, endianess);
+        Assert.Equal(expected, wireFormatObject.GetHexRep());
+        Assert.Equal('a', wireFormatObject.typeCode);
+    }
 }

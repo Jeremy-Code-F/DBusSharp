@@ -16,6 +16,8 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/79e4bd844d6f4542b2b704d2e0d8683af5800/98/bd4f6fef/DBusConnection.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8517f607c12a4b508364c3f896f0fe6f11da8/50/a8a96f81/Assert.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/aa5e8025a15043d1b48bbfcdd4979a743f400/7a/7c08f0f0/Opaque.cs" root0="SKIP_HIGHLIGHTING" />
@@ -86,7 +88,7 @@
       <workItem from="1665499440436" duration="6509000" />
       <workItem from="1665598658660" duration="2183000" />
       <workItem from="1665847411783" duration="4000" />
-      <workItem from="1665955381875" duration="1145000" />
+      <workItem from="1665955381875" duration="4167000" />
     </task>
     <servers />
   </component>
@@ -144,5 +146,10 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="RiderUnitTests">
+        <watch expression="objToMarshal.GetType()" language="C#" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

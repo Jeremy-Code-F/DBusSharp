@@ -243,8 +243,51 @@ public class DBusMarshaler
           }
           
           wireFormatObject.typeCode = 'g';
+       }
+
+       if (objToMarshal.GetType().IsArray)
+       {
           
        }
+
+       // if (objToMarshal is Int32[] int32ArrObj)
+       // {
+       //    List<byte> dataBytes = new List<byte>();
+       //    UInt32 arrDataLen = (UInt32)int32ArrObj.Length;
+       //    byte[] dataLenBytes = BitConverter.GetBytes(arrDataLen);
+       //    foreach (byte dataLenByte in dataLenBytes)
+       //    {
+       //       dataBytes.Add(dataLenByte);
+       //    }
+       //    
+       //    // alignment padding
+       //      int remainingAlignmentBytes = 4- (wireFormatObject.dataBytes.Count % 4) ;
+       //      if (remainingAlignmentBytes < 4)
+       //      {
+       //         for (int i = 0; i < remainingAlignmentBytes; i++)
+       //         {
+       //            dataBytes.Add((byte)'\0'); 
+       //         }
+       //      }
+       //
+       //      foreach (Int32 i32 in int32ArrObj)
+       //      {
+       //         WireFormatObject subObj = this.MarshalObject(i32, endianess);
+       //         foreach (byte subObjByte in subObj.dataBytes)
+       //         {
+       //            dataBytes.Add(subObjByte);
+       //         }
+       //      }
+       //
+       //      byte[] dataBytesArr = dataBytes.ToArray();
+       //      this.FixEndianess(dataBytesArr, endianess);
+       //      
+       //      foreach (byte dataByte in dataBytesArr)
+       //      {
+       //         wireFormatObject.dataBytes.Add(dataByte);
+       //      }
+       //    wireFormatObject.typeCode = 'a';
+       // }
        
        return wireFormatObject;
    }
