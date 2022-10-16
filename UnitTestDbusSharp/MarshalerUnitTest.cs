@@ -181,4 +181,17 @@ public class MarshalerUnitTest
         Assert.Equal(expected, wireFormatObject.GetHexRep());
         Assert.Equal('o', wireFormatObject.typeCode);
     }
+    
+    [Theory]
+    [InlineData("t", MessageEndianess.LittleEndian, "01-74-00")]
+    [InlineData("t", MessageEndianess.BigEndian, "00-74-01")]
+    public void TestMarshalSignature(string value, MessageEndianess endianess, string expected)
+    {
+        DBusSignature signature = new DBusSignature(value);
+        DBusMarshaler marshaler = new DBusMarshaler();
+        
+        WireFormatObject wireFormatObject = marshaler.MarshalObject(signature, endianess);
+        Assert.Equal(expected, wireFormatObject.GetHexRep());
+        Assert.Equal('g', wireFormatObject.typeCode);
+    }
 }

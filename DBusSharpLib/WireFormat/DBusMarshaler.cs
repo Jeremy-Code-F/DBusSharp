@@ -26,8 +26,36 @@ public class DBusMarshaler
           Array.Reverse(data);
        }
    }
+   
+   private byte[] WireMarshalSignature(string strToMarshal, MessageEndianess endianess, int byteAlignment=1)
+   {
+      List<byte> strBytes = new List<byte>();
+          
+      byte[] bytes = Encoding.UTF8.GetBytes(strToMarshal);
+      byte bytesLen = (byte)bytes.Length;
+      strBytes.Add(bytesLen);
 
-   private byte[] WireMarshalString(string strToMarshal, MessageEndianess endianess)
+      foreach (byte strByte in bytes)
+      {
+         strBytes.Add(strByte);
+      }
+      strBytes.Add((byte)'\0');
+
+      int remainingAlignmentBytes = byteAlignment - (strBytes.Count % byteAlignment) ;
+      if (remainingAlignmentBytes < byteAlignment)
+      {
+         for (int i = 0; i < remainingAlignmentBytes; i++)
+         {
+            strBytes.Add((byte)'\0'); 
+         }
+      }
+
+      byte[] byteArr = strBytes.ToArray();
+      FixEndianess(byteArr, endianess);
+      return byteArr;
+   }
+
+   private byte[] WireMarshalString(string strToMarshal, MessageEndianess endianess, int byteAlignment=4)
    {
       List<byte> strBytes = new List<byte>();
           
@@ -45,8 +73,8 @@ public class DBusMarshaler
       }
       strBytes.Add((byte)'\0');
 
-      int remainingAlignmentBytes = 4 - (strBytes.Count % 4) ;
-      if (remainingAlignmentBytes < 4)
+      int remainingAlignmentBytes = byteAlignment - (strBytes.Count % byteAlignment) ;
+      if (remainingAlignmentBytes < byteAlignment)
       {
          for (int i = 0; i < remainingAlignmentBytes; i++)
          {
@@ -203,6 +231,18 @@ public class DBusMarshaler
           }
           
           wireFormatObject.typeCode = 'o';
+          
+       }
+
+       if (objToMarshal is DBusSignature signatureObj)
+       {
+          byte[] bytes = this.WireMarshalSignature(signatureObj.SignatureStr, endianess);
+          foreach (byte strByte in bytes)
+          {
+             wireFormatObject.dataBytes.Add(strByte);
+          }
+          
+          wireFormatObject.typeCode = 'g';
           
        }
        

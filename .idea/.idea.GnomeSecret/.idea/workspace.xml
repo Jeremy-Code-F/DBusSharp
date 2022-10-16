@@ -45,7 +45,7 @@
     &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.7532656&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/chewy/RiderProjects/GnomeSecret&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.appearance&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -83,7 +83,10 @@
       <workItem from="1665364193887" duration="100000" />
       <workItem from="1665416339215" duration="11268000" />
       <workItem from="1665448875273" duration="3071000" />
-      <workItem from="1665499440436" duration="5118000" />
+      <workItem from="1665499440436" duration="6509000" />
+      <workItem from="1665598658660" duration="2183000" />
+      <workItem from="1665847411783" duration="4000" />
+      <workItem from="1665955381875" duration="1145000" />
     </task>
     <servers />
   </component>
@@ -138,19 +141,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/DBusSharpLib/WireFormat/DBusMarshaler.cs</url>
-          <line>47</line>
-          <properties documentPath="$PROJECT_DIR$/DBusSharpLib/WireFormat/DBusMarshaler.cs" initialLine="47" containingFunctionPresentation="method 'WireMarshalString'">
-            <startOffsets>
-              <option value="1203" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1259" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
